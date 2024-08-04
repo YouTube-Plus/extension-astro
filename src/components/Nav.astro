@@ -1,0 +1,88 @@
+---
+import { Icon } from "astro-icon/components";
+
+const pathname = Astro.url.pathname;
+---
+
+<nav id="nav">
+	<div id="navbar-left">
+		{
+			// If the current page is not the home page, show the back button
+			pathname !== "/" && (
+				<a href="/">
+					<Icon name="symbols/left-arrow" width={32} height={32} />
+				</a>
+			)
+		}
+		<Icon name="branding/logo" width={32} height={32} />
+		<h1 id="page-name">YouTube+</h1>
+	</div>
+	<div id="navbar-right">
+		<Icon name="symbols/search" width={32} height={32} />
+		<a href="/settings">
+			<Icon name="symbols/more" width={32} height={32} />
+		</a>
+	</div>
+</nav>
+<style>
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+    z-index: 2;
+    position: relative;
+    height: 50px;
+    width: inherit;
+    background-color: var(--element-color-elevation-1);
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+}
+
+	nav[data-nav-intro="move-down"] {
+		top: -50px;
+		animation: move-down 800ms forwards;
+	}
+
+	nav[data-nav-animation="move-left"], nav[data-nav-animation="move-right"] {
+		position: relative;
+	}
+
+	nav[data-nav-animation="move-left"] {
+		left: 40px;
+		animation: move-left 800ms forwards;
+	}
+
+	nav[data-nav-animation="move-right"] {
+		right: 40px;
+		animation: move-right 800ms forwards;
+	}
+
+	#navbar-left {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	#navbar-right {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	@keyframes move-down {
+		from { top: -50px; }
+		to { top: 0; }
+	}
+
+	@keyframes move-left {
+		from { left: 40px; }
+		to { left: 0; }
+	}
+
+	@keyframes move-right {
+		from { right: 40px; }
+		to { right: 0; }
+	}
+</style>

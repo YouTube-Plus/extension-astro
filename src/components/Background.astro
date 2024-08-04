@@ -1,0 +1,124 @@
+---
+import { adapter } from 'astro-vtbot/animations/animation-style';
+
+const move_left = {
+  old: {
+	name: 'move_right',
+	duration: '0.65s',
+	easing: 'ease',
+	fillMode: 'backwards',
+  },
+  new: {
+	name: 'move_left',
+	duration: '0.65s',
+	easing: 'ease',
+	fillMode: 'forwards',
+  }
+};
+
+const move_right = {
+  old: {
+	name: 'move_left',
+	duration: '0.65s',
+	easing: 'ease',
+	fillMode: 'backwards',
+  },
+  new: {
+	name: 'move_right',
+	duration: '0.65s',
+	easing: 'ease',
+	fillMode: 'forwards',
+  }
+};
+
+const move_diag_NE = {
+  old: {
+	name: 'move_diag_SW',
+	duration: '0.65s',
+	easing: 'ease',
+  },
+  new: {
+	name: 'move_diag_NE',
+	duration: '0.65s',
+	easing: 'ease',
+  }
+};
+
+const move_diag_SW = {
+  old: {
+	name: 'move_diag_NE',
+	duration: '0.65s',
+	easing: 'ease',
+  },
+  new: {
+	name: 'move_diag_SW',
+	duration: '0.65s',
+	easing: 'ease',
+  }
+};
+
+const animation = {
+  forward: move_diag_NE,
+  backward: move_diag_SW
+};
+---
+
+<div id="background-blur" transition:animate={adapter(animation)} transition:name="background"></div>
+<style is:inline>
+#background-blur {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	height: 600px;
+	width: 400px;
+
+	background-color: #000;
+	background-size: 50px 50px;
+	background-position: 50% 51px;
+	background-image: linear-gradient(to right, var(--primary) 2px, transparent 2px), linear-gradient(to bottom, var(--primary) 1px, transparent 1px);	
+	/* animation: zoom 800ms forwards; */
+}
+
+	#background-blur[data-blur-animation="move_left"] { animation: move_left 800ms forwards; }
+	#background-blur[data-blur-animation="move_right"] { animation: move_right 800ms forwards; }
+	#background-blur[data-blur-animation="move_diag_NE"] { animation: move_diag_NE 800ms forwards; }
+	#background-blur[data-blur-animation="move_diag_SW"] { animation: move_diag_SW 800ms forwards; }
+
+@keyframes zoom {
+	from { background-size: 20px 20px; }
+	to { background-size: 50px 50px; }
+}
+
+@keyframes move_left {
+	from { background-position: -50% 51px; }
+	to { background-position: 50% 51px; }
+}
+
+@keyframes move_right {
+	from { background-position: 50% 51px; }
+	to { background-position: -50% 51px; }
+}
+
+@keyframes move_diag_NE {
+	from { background-position: 50% 51px; }
+	to { background-position: -50% calc(50% + 26px); }
+}
+
+@keyframes move_diag_SW {
+	from { background-position: -50% calc(50% + 26px); }
+	to { background-position: 50% 51px; }
+}
+</style>
+<script define:vars={{ move_left, move_right, move_diag_NE, move_diag_SW }}>
+	document.addEventListener('astro:before-preparation', (e) => {
+		let to = e.to.pathname;
+
+		if (to === '/settings') {
+			e.direction = 'forward';
+			console.log(e.direction);
+		}
+
+		console.log(e.to.pathname, e.from.pathname)
+	});
+</script>
