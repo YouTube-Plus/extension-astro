@@ -43,26 +43,6 @@ html, body, #root {
 
 	body { background-color: #000; }
 
-	#root::before {
-		content: '';
-		position: absolute;
-		min-height: 600px;
-		min-width: 400px;
-		top: 0;
-		left: 0;
-		backdrop-filter: blur(var(--blur-elevation-1));
-		-webkit-backdrop-filter: blur(var(--blur-elevation-1));
-	}
-
-		/* .settings-container { 
-			.settings-container::-webkit-scrollbar {
-				width: 4px;
-			}
-			.settings-container::-webkit-scrollbar-thumb {
-				background-color: var(--scroll-bar-color);
-			}
-		} */
-
 		#navbar, .setting-pages-container, .settings-container, #footer {
 			backdrop-filter: blur(var(--blur-elevation-1));
 			-webkit-backdrop-filter: blur(var(--blur-elevation-1));

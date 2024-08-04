@@ -1,8 +1,27 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-
 import Nav from '@src/components/Nav.astro';
-import Background from '@src/components/Background.astro';
+import { adapter } from 'astro-vtbot/animations/animation-style';
+
+const moveAnimation = {
+  old: {
+    name: "move", // same name as the keyframe in layouts/Main
+    duration: "0.7s",
+    easing: "linear",
+    fillMode: "forwards",
+  },
+  new: {
+    name: "move",
+    duration: "0.7s",
+    easing: "linear",
+    fillMode: "backwards",
+  },
+};
+
+const move = {
+  forwards: moveAnimation,
+  backwards: moveAnimation,
+};
 ---
 
 <html lang="en">
@@ -13,11 +32,13 @@ import Background from '@src/components/Background.astro';
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Browser Extension Builder</title>
 		<link rel="stylesheet" href="/src/config.css" />
-		<ViewTransitions fallback="swap" />
+		<ViewTransitions />
 	</head>
 	<body>
-		<Background />
-		<Nav />
+		<div id="background-blur" transition:animate={move}>
+			<Nav />
+			<slot />
+		</div>
 		<!-- <div id="container">
 			<div id="wrapper">
 				<slot />
@@ -26,7 +47,7 @@ import Background from '@src/components/Background.astro';
 		<div id="root"></div> -->
 	</body>
 </html>
-<style>
+<style is:global>
 #container {
 	display: flex;
 	justify-content: center;
@@ -47,8 +68,25 @@ import Background from '@src/components/Background.astro';
 		animation: fade-in 800ms forwards; */
 	}
 
-	@keyframes fade-in {
-		from { opacity: 0; }
-		to { opacity: 1; }
+	#background-blur {
+		height: 600px;
+		width: 400px;
+
+		background-color: #000;
+		background-size: 50px 50px;
+		background-position: 50% 51px;
+		background-image: linear-gradient(to right, var(--primary) 2px, transparent 2px), linear-gradient(to bottom, var(--primary) 1px, transparent 1px);	
+	}
+
+	/* This works */ 
+	/* @keyframes move {
+		from { transform: translateX(0px) translateY(0px);}
+		to { transform: translateX(-40px) translateY(40px);}
+	} */
+
+	/* But this doesn't work */
+	@keyframes move {
+		from { background-position: 50% 51px; }
+		to { background-position: -50% calc(50% + 26px); }
 	}
 </style>
