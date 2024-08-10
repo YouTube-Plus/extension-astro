@@ -23,7 +23,9 @@ const { title } = Astro.props;
 		<Nav title={title} />
 		<div id="container">
 			<div id="wrapper">
-				<slot />
+				<div id="content">
+					<slot />
+				</div>
 			</div>
 		</div>
 		<div id="root"></div>
@@ -47,9 +49,19 @@ const { title } = Astro.props;
 		height: var(--content-height);
 		max-height: var(--content-height);
 		border-radius: var(--border-radius);
-		/* opacity: 0;
-		animation: fade-in 800ms forwards; */
+		opacity: 0;
+		animation: fade-in 800ms forwards;
+		overflow: hidden;
 	}
+
+		#content {
+			height: 100%;
+			overflow-y: scroll;
+		}
+
+			#content::-webkit-scrollbar { width: 4px; }
+
+			#content::-webkit-scrollbar-thumb { background-color: var(--scroll-bar-color); }
 
 	#root {
 		position: absolute;
@@ -79,6 +91,11 @@ const { title } = Astro.props;
 	#background-blur[data-blur-animation="slide-right"] { animation: slide-right 800ms 150ms forwards; }
 	#background-blur[data-blur-animation="slide-diag-NE"] { animation: slide-diag-NE 800ms 150ms forwards; }
 	#background-blur[data-blur-animation="slide-diag-SW"] { animation: slide-diag-SW 800ms 150ms forwards; }
+
+	@keyframes fade-in {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
 
 	@keyframes zoom {
 		from { background-size: 20px 20px; }

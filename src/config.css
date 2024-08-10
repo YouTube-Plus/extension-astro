@@ -47,3 +47,8 @@ html, body, #root {
 			backdrop-filter: blur(var(--blur-elevation-1));
 			-webkit-backdrop-filter: blur(var(--blur-elevation-1));
 		}
+
+/* Sorry Martin! */
+#vtbot-loading-indicator {
+	display: none;
+}

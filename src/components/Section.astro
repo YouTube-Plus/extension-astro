@@ -1,0 +1,39 @@
+---
+interface Props {
+	icon: string;
+	title: string;
+	href: string;
+}
+
+import { Icon } from "astro-icon/components";
+
+const { icon, title, href } = Astro.props;
+---
+
+<a href={href} class="section-redirect">
+	<Icon name={icon} class="section-icon" width={64} height={64} />
+	<span class="section-title">{title}</span>
+</a>
+<style>
+	.section-redirect {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 15px;
+		width: 100%;
+		padding: 10px;
+		border-radius: var(--border-radius);
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+		.section-redirect:hover {
+			background-color: var(--element-color-elevation-1);
+		}
+
+		.section-title {
+			font-size: 1.5rem;
+			font-weight: 500;
+			color: var(--text-color);
+		}
+</style>
