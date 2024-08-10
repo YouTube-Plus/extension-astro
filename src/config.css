@@ -41,7 +41,7 @@ html, body, #root {
 	overflow: hidden;
 }
 
-	body { background-color: #000; }
+	body {  background-color: #000;  }
 
 		#navbar, .setting-pages-container, .settings-container, #footer {
 			backdrop-filter: blur(var(--blur-elevation-1));

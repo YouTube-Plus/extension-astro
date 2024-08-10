@@ -1,21 +1,20 @@
 ---
+interface Props {
+	title: string;
+}
+
 import { Icon } from "astro-icon/components";
 
-const pathname = Astro.url.pathname;
+const { title } = Astro.props;
 ---
 
 <nav id="nav">
-	<div id="navbar-left">
-		{
-			// If the current page is not the home page, show the back button
-			pathname !== "/" && (
-				<a href="/">
-					<Icon name="symbols/left-arrow" width={32} height={32} />
-				</a>
-			)
-		}
-		<Icon name="branding/logo" width={32} height={32} />
-		<h1 id="page-name">YouTube+</h1>
+	<div id="navbar-left" transition:persist="navbar-left">
+		<a href="#" onclick="window.history.back(); return false;">
+			<Icon name="symbols/left-arrow" width={32} height={32} />
+		</a>
+		<!-- <Icon name="branding/logo" width={32} height={32} /> -->
+		<h1 id="page-name">{title}</h1>
 	</div>
 	<div id="navbar-right">
 		<Icon name="symbols/search" width={32} height={32} />
@@ -43,18 +42,23 @@ nav {
 		animation: move-down 800ms forwards;
 	}
 
-	nav[data-nav-animation="move-left"], nav[data-nav-animation="move-right"] {
+	#navbar-left[data-nav-animation="move-left"], #navbar-left[data-nav-animation="move-right"] {
 		position: relative;
 	}
 
-	nav[data-nav-animation="move-left"] {
-		left: 40px;
-		animation: move-left 800ms forwards;
+	#navbar-left[data-nav-animation="move-left"] {
+		/* left: 40px; */
+		animation: move-left 800ms 150ms forwards;
 	}
 
-	nav[data-nav-animation="move-right"] {
+	#navbar-left[data-nav-animation="move-right"] {
 		right: 40px;
-		animation: move-right 800ms forwards;
+		animation: move-right 800ms 200ms forwards;
+	}
+
+	#navbar-left[data-nav-state="hidden"] {
+		position: relative;
+		right: 40px;
 	}
 
 	#navbar-left {
@@ -77,8 +81,8 @@ nav {
 	}
 
 	@keyframes move-left {
-		from { left: 40px; }
-		to { left: 0; }
+		from { left: 0; }
+		to { left: -40px; }
 	}
 
 	@keyframes move-right {
@@ -86,3 +90,29 @@ nav {
 		to { right: 0; }
 	}
 </style>
+<script>
+	const nav = document.getElementById('nav');
+	const nav_left = document.getElementById('navbar-left');
+
+	if (location.pathname !== '/') {
+		nav?.setAttribute('data-nav-intro', '');
+		nav_left?.setAttribute('data-nav-state', '');
+	} else {
+		nav?.setAttribute('data-nav-intro', 'move-down');
+		nav_left?.setAttribute('data-nav-state', 'hidden');
+	}
+
+	document.addEventListener('astro:before-preparation', (e) => {
+		if (e.to.pathname !== '/') {
+			nav?.setAttribute('data-nav-intro', '');
+			nav_left?.setAttribute('data-nav-state', '');
+			if (nav_left?.getAttribute('data-nav-animation') !== 'move-right' && nav_left?.getAttribute('data-nav-animation') !== 'triggered') {
+				nav_left?.setAttribute('data-nav-animation', 'move-right');
+			} else {
+				nav_left?.setAttribute('data-nav-animation', 'triggered');
+			}
+		} else {
+			nav_left?.setAttribute('data-nav-animation', 'move-left');
+		}
+	}, { once: false });
+</script>
