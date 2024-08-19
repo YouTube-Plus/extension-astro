@@ -126,6 +126,11 @@ const { title } = Astro.props;
 	const background_blur = document.getElementById('background-blur');
 
 	document.addEventListener('astro:before-preparation', (e) => {
+		if (e.from.pathname === e.to.pathname) {
+			background_blur?.setAttribute('data-blur-animation', '');
+			return;
+		};
+		
 		if (e.to.pathname === '/settings') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-diag-NE');
 		} else if (e.to.pathname === '/') {

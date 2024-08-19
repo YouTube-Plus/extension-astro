@@ -1,0 +1,118 @@
+---
+interface Props {
+	icon: string;
+	name: string;
+	setting_ID: string;
+	checked: string;
+}
+
+import { Icon } from 'astro-icon/components';
+
+const { icon, name, setting_ID, checked } = Astro.props;
+---
+
+<div class="switch">
+	<div class="switch-left">
+		<Icon name={icon} class="setting-icon" width={32} height={32} />
+		<span class="setting-name">{name}</span>
+	</div>
+	<div class="switch-right">
+		<label class="switch-wrapper">
+			<input class="switch-checkbox" type="checkbox" />
+			<span class="switch-slider" id={setting_ID} data-toggled={checked}></span>
+		</label>
+	</div>
+</div>
+<style>
+	.switch {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		height: 64px;
+		width: 100%;
+	}
+
+		.switch-left {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.switch-wrapper {
+			position: relative;
+			display: inline-block;
+			height: 32px;
+			width: 64px;
+			border-radius: 10px;
+		}
+
+			.switch-checkbox {
+				opacity: 0;
+				width: 0;
+				height: 0;
+			}
+
+			.switch-slider {
+				position: absolute;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 0 5px 0 5px;
+				cursor: pointer;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: var(--switch-bg-color);
+				border-radius: 5px;
+				transition: .4s;
+			}
+
+				.switch-slider[data-toggled="true"] {
+					background-color: var(--switch-toggled-color);
+				}
+
+					.switch-slider[data-toggled="true"]::before { transform: translateX(30px); }
+					.switch-slider[data-toggled="true"]::after { transform: translateX(30px) rotate(45deg); }
+
+					.switch-slider::before {
+						position: absolute;
+						content: "";
+						border-radius: 5px;
+						height: 24px;
+						width: 24px;
+						background-color: #FFF;
+						box-shadow: 0 3px 3px 3px rgba(10, 10, 10, 0.29);
+						transition: .4s;
+					}
+
+					.switch-slider::after {
+						position: absolute;
+						content: "";
+						background-image: url("assets/icons/symbols/setting-image.svg");
+						background-size: 24px 24px;
+						border-radius: 5px;
+						height: 24px;
+						width: 24px;
+						transition: .4s;
+					}
+</style>
+<script>
+	function attachEventListeners() {
+		const sliders = document.querySelectorAll('.switch-slider');
+
+		sliders?.forEach((item) => {
+			item.addEventListener('click', (e) => {
+				let toggled = item?.getAttribute('data-toggled');
+
+				toggled === 'true' ? item?.setAttribute('data-toggled', 'false') : item?.setAttribute('data-toggled', 'true');
+				e.stopImmediatePropagation();
+			});
+		});
+	}
+
+	attachEventListeners();
+	document.addEventListener('astro:page-load', attachEventListeners);
+</script>
