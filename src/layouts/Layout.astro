@@ -16,7 +16,6 @@ const { title } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
-        <link rel="stylesheet" href="/src/config.css" />
         <ViewTransitions />
     </head>
     <body>
@@ -29,10 +28,65 @@ const { title } = Astro.props;
 			</div>
 		</div>
 		<div id="root"></div>
-		<div id="background-blur" transition:persist="blur"></div>
+		<div id="background-blur" transition:persist="blur" data-blur-animation="zoom"></div>
     </body>
 </html>
 <style is:global>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+:root {
+	--text: #ffffff;
+	--background: #000000;
+	--primary: #7A0818;
+	--secondary: #2c0707;
+	--accent: #de2121;
+
+	--switch-bg-color: #898989;
+	--switch-toggled-color: #087a12;
+
+	--element-color-elevation-1: rgba(101, 51, 51, 0.2);
+	--element-color-elevation-2: rgba(101, 51, 51, 0.4);
+
+	--focus-color: rgba(255, 255, 255, 0.2);
+
+	--scroll-bar-color: rgba(255, 255, 255, 0.4);
+	--background-blur: 3px;
+	--blur-elevation-1: 3px;
+	--blur-elevation-2: 5px;
+	--border-radius: 10px;
+	--content-height: 450px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: white;
+	font-family: 'IBM Plex Sans', sans-serif;
+}
+
+html, body, #root {
+	min-height: 600px;
+	min-width: 400px;
+	max-height: 600px;
+	max-width: 400px;
+	overflow: hidden;
+}
+
+	body {  background-color: #000;  }
+
+		#navbar, .setting-pages-container, .settings-container, #footer {
+			backdrop-filter: blur(var(--blur-elevation-1));
+			-webkit-backdrop-filter: blur(var(--blur-elevation-1));
+		}
+
+/* Sorry Martin! */
+#vtbot-loading-indicator {
+	display: none;
+}
+
 #container {
 	display: flex;
 	justify-content: center;
@@ -131,15 +185,15 @@ const { title } = Astro.props;
 			return;
 		};
 		
-		if (e.to.pathname === '/settings') {
+		if (e.to.pathname === '/settings/index.html') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-diag-NE');
-		} else if (e.to.pathname === '/') {
+		} else if (e.to.pathname === '/index.html') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-left');
 		} else {
 			background_blur?.setAttribute('data-blur-animation', 'slide-right');
 		}
 
-		if (e.from.pathname === '/settings') {
+		if (e.from.pathname === '/settings/index.html') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-diag-SW');
 		}
 	});

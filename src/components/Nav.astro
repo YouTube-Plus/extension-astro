@@ -10,7 +10,7 @@ const { title } = Astro.props;
 
 <nav id="nav">
 	<div id="navbar-left" transition:persist="navbar-left">
-		<a href="#" onclick="window.history.back(); return false;">
+		<a href="#" id="back-button">
 			<Icon name="symbols/left-arrow" width={32} height={32} />
 		</a>
 		<!-- <Icon name="branding/logo" width={32} height={32} /> -->
@@ -18,7 +18,7 @@ const { title } = Astro.props;
 	</div>
 	<div id="navbar-right">
 		<Icon name="symbols/search" class="navbar-item" width={32} height={32} />
-		<a href="/settings" class="navbar-item">
+		<a href="/settings/index.html" class="navbar-item">
 			<Icon name="symbols/more" width={32} height={32} />
 		</a>
 	</div>
@@ -105,8 +105,9 @@ nav {
 <script>
 	const nav = document.getElementById('nav');
 	const nav_left = document.getElementById('navbar-left');
+	const back_button = document.getElementById('back-button');
 
-	if (location.pathname !== '/') {
+	if (location.pathname !== '/index.html') {
 		nav?.setAttribute('data-nav-intro', '');
 		nav_left?.setAttribute('data-nav-state', '');
 	} else {
@@ -115,7 +116,7 @@ nav {
 	}
 
 	document.addEventListener('astro:before-preparation', (e) => {
-		if (e.to.pathname !== '/') {
+		if (e.to.pathname !== '/index.html') {
 			nav?.setAttribute('data-nav-intro', '');
 			nav_left?.setAttribute('data-nav-state', '');
 			if (nav_left?.getAttribute('data-nav-animation') !== 'move-right' && nav_left?.getAttribute('data-nav-animation') !== 'triggered') {
@@ -127,6 +128,10 @@ nav {
 			nav_left?.setAttribute('data-nav-animation', 'move-left');
 		}
 	}, { once: false });
+
+	back_button?.addEventListener('click', () => {
+		history.back();
+	});
 </script>
 <script>
 	document.addEventListener("astro:before-swap", (e) => {
@@ -134,4 +139,4 @@ nav {
 	  const newTitle = e.newDocument.querySelector("#page-name");
 	  if (oldTitle && newTitle) oldTitle.replaceWith(newTitle);
 	});
-  </script>
+</script>
