@@ -2,11 +2,21 @@
   "manifest_version": 3,
   "name": "YouTube+",
   "version": "0.1.0",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["https://www.youtube.com/*"],
       "js": ["content.js"],
-      "css": ["content.css"]
+      "css": ["content.css"],
+	  "run_at": "document_end"
     }
   ],
   "background": {
