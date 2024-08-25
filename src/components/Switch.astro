@@ -3,12 +3,11 @@ interface Props {
 	icon: string;
 	name: string;
 	setting_ID: string;
-	checked: string;
 }
 
 import { Icon } from 'astro-icon/components';
 
-const { icon, name, setting_ID, checked } = Astro.props;
+const { icon, name, setting_ID } = Astro.props;
 ---
 
 <div class="switch">
@@ -19,7 +18,7 @@ const { icon, name, setting_ID, checked } = Astro.props;
 	<div class="switch-right">
 		<label class="switch-wrapper">
 			<input class="switch-checkbox" type="checkbox" />
-			<span class="switch-slider" id={setting_ID} data-toggled={checked}></span>
+			<span class="switch-slider" id={setting_ID} data-toggled={false}></span>
 		</label>
 	</div>
 </div>

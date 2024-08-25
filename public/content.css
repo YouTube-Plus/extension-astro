@@ -2,3 +2,78 @@
  * here are used to change the appearance of the pages specified
  * in the matches array inside the public/manifest.json file. 
  */
+ .yt-spec-icon-badge-shape__icon > yt-icon {
+	fill: yellow;
+  }
+  
+  .yt-spec-button-shape-next__icon > yt-icon > yt-animated-icon {
+	filter: invert(43%) sepia(95%) saturate(702%) hue-rotate(81deg) brightness(97%) contrast(89%);
+  }
+  
+  .yt-live-chat-product-button-renderer:hover {
+	background-color: #000;
+  }
+  
+  .yt-emoji-picker-renderer {
+	color: purple;
+  }
+  
+  #category-buttons > yt-emoji-picker-category-button-renderer[active] {
+	color: #000;
+  }
+  
+  #cinematics > div {
+	display: none;
+  }
+  
+  .ytd-miniplayer {
+	background-color: #000;
+  }
+  
+  .yt-spec-touch-feedback-shape__fill:hover {
+	background-color: blue;
+  }
+  
+  .ytd-badge-supported-renderer {
+	color: #0e99da;
+  }
+  
+  :root * {
+	--yt-spec-base-background: #000;
+	--yt-spec-raised-background: white;
+	--yt-spec-badge-chip-background: crimson;
+	--yt-spec-text-primary: #1cae23;
+	--yt-spec-text-secondary: #076a0c;
+	--ytd-searchbox-background: #ba1dbf;
+	--ytd-searchbox-legacy-button-color: beige;
+	--ytd-searchbox-legacy-button-hover-color: #000;
+	--yt-spec-general-background-a: #11f0e5;
+	--yt-live-chat-primary-text-color: green;
+	--yt-live-chat-secondary-text-color: lightgreen;
+	--yt-live-chat-text-input-field-inactive-underline-color: #000;
+	--yt-live-chat-text-input-field-active-underline-color: blue;
+	--yt-live-chat-background-color: #b5c919;
+	--yt-live-chat-header-background-color: #b5c919;
+	--yt-live-chat-action-panel-background-color: #b5c919;
+	--yt-pdg-paid-stickers-tab-selection-bar-color: #000;
+	--yt-emoji-picker-search-background-color: #000;
+	--yt-live-chat-vem-background-color: #000;
+	--yt-live-chat-sponsor-color: #1936c9;
+	--yt-emoji-picker-category-background-color: #000;
+	--yt-live-chat-paid-sticker-chip-background-color: #000;
+	--yt-live-chat-paid-sticker-chip-text-color: white;
+	--yt-spec-text-disabled: #000;
+	--yt-spec-touch-response: #1cae23;
+	--yt-spec-brand-icon-inactive: none;
+	--yt-spec-brand-icon-active: blue;
+	--yt-spec-themed-blue: gold;
+	--yt-spec-static-brand-red: purple;
+	--yt-spec-call-to-action: white;
+	--yt-spec-static-overlay-text-primary: white;
+	--yt-spec-static-overlay-background-brand: cornflowerblue;
+	--yt-active-playlist-panel-background-color: green;
+	--yt-spec-icon-active-other: crimson;
+	--yt-button-color: white;
+	--yt-spec-icon-inactive: #1cae23S;
+	--yt-spec-menu-background: #000;
+  }/*# sourceMappingURL=dark+.css.map */
