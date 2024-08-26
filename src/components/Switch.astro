@@ -7,7 +7,7 @@ interface Props {
 
 import { Icon } from 'astro-icon/components';
 
-const { icon, name, setting_ID } = Astro.props;
+const { icon, name, setting_ID} = Astro.props;
 ---
 
 <div class="switch">
@@ -18,7 +18,7 @@ const { icon, name, setting_ID } = Astro.props;
 	<div class="switch-right">
 		<label class="switch-wrapper">
 			<input class="switch-checkbox" type="checkbox" />
-			<span class="switch-slider" id={setting_ID} data-toggled={false}></span>
+			<span class="switch-slider" id={setting_ID}></span>
 		</label>
 	</div>
 </div>
@@ -99,19 +99,26 @@ const { icon, name, setting_ID } = Astro.props;
 					}
 </style>
 <script>
-	function attachEventListeners() {
+	// Page Load for assigning event listeners each time upon navigation
+	document.addEventListener("astro:page-load", () => {
 		const sliders = document.querySelectorAll('.switch-slider');
 
-		sliders?.forEach((item) => {
+		sliders.forEach((item) => {
+			// Set the current toggled state via Chrome Storage API
+			chrome.storage.sync.get([item.id], function(result) {
+				item.setAttribute('data-toggled', result[item.id])
+			});				
+
+			// Event listener for updating setting state reflected in Chrome Storage API
 			item.addEventListener('click', (e) => {
-				let toggled = item?.getAttribute('data-toggled');
-
-				toggled === 'true' ? item?.setAttribute('data-toggled', 'false') : item?.setAttribute('data-toggled', 'true');
+				let toggled = item.getAttribute('data-toggled') === 'true';
+				let applied_toggle = !toggled;
+			
+				item.setAttribute('data-toggled', applied_toggle.toString());
+				chrome.storage.sync.set({[item.id]: applied_toggle});
+			
 				e.stopImmediatePropagation();
-			});
+			})
 		});
-	}
-
-	attachEventListeners();
-	document.addEventListener('astro:page-load', attachEventListeners);
+	})
 </script>

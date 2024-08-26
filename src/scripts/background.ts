@@ -4,10 +4,12 @@ chrome.runtime.onInstalled.addListener((state) => {
 	if (state.reason === 'install') {
 		chrome.storage.sync.set({
 			exact_frame: true,
+			test: false
 		});
 
-		chrome.storage.sync.get(['exact_frame']).then((result) => {
+		chrome.storage.sync.get(['exact_frame', 'test']).then((result) => {
 			console.log('[YouTube+]: Exact frame is', result.exact_frame);
+			console.log('[YouTube+]: Test is', result.test);
 		});
 
 		console.log('[YouTube+]: Extension installed!');

@@ -1,15 +1,9 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Switch from "@components/Switch.astro";
-
-// const exact_frame = chrome.storage.sync.get(["exact_frame"]);
 ---
 
 <Layout title="Themes"> 
-	<Switch icon="symbols/theme" name="Exact Frame" setting_ID="exact_frame" />
+	<Switch icon="symbols/video" name="Exact Frame" setting_ID="exact_frame" />
+	<Switch icon="symbols/cog" name="Test" setting_ID="test" />
 </Layout>
-<script>
-	chrome.storage.sync.get(['exact_frame'], function(result) {
-		document.getElementById('exact_frame')?.setAttribute('data-toggled', result.exact_frame);
-	});
-</script>
