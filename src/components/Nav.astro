@@ -102,33 +102,37 @@ nav {
 	}
 </style>
 <script>
-	const nav = document.getElementById('nav');
-	const nav_left = document.getElementById('navbar-left');
-	const back_button = document.getElementById('back-button');
+	const nav = document.getElementById('nav') as HTMLElement;
+	const nav_left = document.getElementById('navbar-left') as HTMLElement;
+	const back_button = document.getElementById('back-button') as HTMLElement;
+	let pathname = location.pathname.replace('/index.html', '/');
 
-	if (location.pathname !== '/index.html') {
-		nav?.setAttribute('data-nav-intro', '');
-		nav_left?.setAttribute('data-nav-state', '');
+	if (pathname !== '/') {
+		nav.setAttribute('data-nav-intro', '');
+		nav_left.setAttribute('data-nav-state', '');
 	} else {
-		nav?.setAttribute('data-nav-intro', 'move-down');
-		nav_left?.setAttribute('data-nav-state', 'hidden');
+		nav.setAttribute('data-nav-intro', 'move-down');
+		nav_left.setAttribute('data-nav-state', 'hidden');
 	}
 
 	document.addEventListener('astro:before-preparation', (e) => {
-		if (e.to.pathname !== '/index.html') {
-			nav?.setAttribute('data-nav-intro', '');
-			nav_left?.setAttribute('data-nav-state', '');
-			if (nav_left?.getAttribute('data-nav-animation') !== 'move-right' && nav_left?.getAttribute('data-nav-animation') !== 'triggered') {
-				nav_left?.setAttribute('data-nav-animation', 'move-right');
+		let pathname = e.to.pathname.replace('/index.html', '/');
+		console.log(pathname);
+		if (pathname !== '/') {
+			nav.setAttribute('data-nav-intro', '');
+			nav_left.setAttribute('data-nav-state', '');
+			if (nav_left.getAttribute('data-nav-animation') !== 'move-right' && nav_left.getAttribute('data-nav-animation') !== 'triggered') {
+				nav_left.setAttribute('data-nav-animation', 'move-right');
 			} else {
-				nav_left?.setAttribute('data-nav-animation', 'triggered');
+				nav_left.setAttribute('data-nav-animation', 'triggered');
 			}
 		} else {
-			nav_left?.setAttribute('data-nav-animation', 'move-left');
+			nav_left.setAttribute('data-nav-animation', 'move-left');
 		}
+		console.log(nav_left.getAttribute('data-nav-animation'));
 	}, { once: false });
 
-	back_button?.addEventListener('click', () => {
+	back_button.addEventListener('click', () => {
 		history.back();
 	});
 </script>
