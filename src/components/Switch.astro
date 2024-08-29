@@ -105,9 +105,11 @@ const { icon, name, setting_ID} = Astro.props;
 
 		sliders.forEach((item) => {
 			// Set the current toggled state via Chrome Storage API
-			chrome.storage.sync.get([item.id], function(result) {
-				item.setAttribute('data-toggled', result[item.id])
-			});				
+			if (location.hostname !== 'localhost') {
+				chrome.storage.sync.get([item.id], function(result) {
+					item.setAttribute('data-toggled', result[item.id])
+				});				
+			}
 
 			// Event listener for updating setting state reflected in Chrome Storage API
 			item.addEventListener('click', (e) => {
@@ -115,7 +117,9 @@ const { icon, name, setting_ID} = Astro.props;
 				let applied_toggle = !toggled;
 			
 				item.setAttribute('data-toggled', applied_toggle.toString());
-				chrome.storage.sync.set({[item.id]: applied_toggle});
+				if (location.hostname !== 'localhost') {
+					chrome.storage.sync.set({[item.id]: applied_toggle});
+				}
 			
 				e.stopImmediatePropagation();
 			})

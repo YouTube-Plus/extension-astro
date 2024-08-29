@@ -7,16 +7,25 @@ chrome.runtime.onInstalled.addListener((state) => {
 			test: false
 		});
 
-		chrome.storage.sync.get(['exact_frame', 'test']).then((result) => {
-			console.log('[YouTube+]: Exact frame is', result.exact_frame);
-			console.log('[YouTube+]: Test is', result.test);
-		});
+		console.log(
+			'%cYouTube+',
+			`background: #7A0818; color: #fff; padding: 4px; border-radius: 2px;`,
+			"Extension Settings have been set to default values."
+		);
 
-		console.log('[YouTube+]: Extension installed!');
+		console.log(
+			'%cYouTube+',
+			`background: #7A0818; color: #fff; padding: 4px; border-radius: 2px;`,
+			"has been installed!"
+		);
 	}
 });
 
-console.log('[YouTube+]: Background script loaded');
+console.log(
+	'%cYouTube+',
+	`background: #7A0818; color: #fff; padding: 4px; border-radius: 2px;`,
+	"background script is running."
+);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log(request);  

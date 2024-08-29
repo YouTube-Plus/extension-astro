@@ -117,7 +117,6 @@ nav {
 
 	document.addEventListener('astro:before-preparation', (e) => {
 		let pathname = e.to.pathname.replace('/index.html', '/');
-		console.log(pathname);
 		if (pathname !== '/') {
 			nav.setAttribute('data-nav-intro', '');
 			nav_left.setAttribute('data-nav-state', '');

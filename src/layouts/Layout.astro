@@ -4,7 +4,7 @@ interface Props {
 }
 
 import { ViewTransitions } from 'astro:transitions';
-import Nav from '@src/components/Nav.astro';
+import Nav from '@components/Nav.astro';
 
 const { title } = Astro.props;
 ---
@@ -185,15 +185,17 @@ html, body, #root {
 			return;
 		};
 		
-		if (e.to.pathname === '/settings/index.html') {
+		let pathname = e.to.pathname.replace('/index.html', '/');
+
+		if (pathname === '/settings') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-diag-NE');
-		} else if (e.to.pathname === '/index.html') {
+		} else if (pathname === '/') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-left');
 		} else {
 			background_blur?.setAttribute('data-blur-animation', 'slide-right');
 		}
 
-		if (e.from.pathname === '/settings/index.html') {
+		if (pathname === '/settings') {
 			background_blur?.setAttribute('data-blur-animation', 'slide-diag-SW');
 		}
 	});
